@@ -16,6 +16,12 @@ public class Assemble {
     private static final int MANDO = 1, CONTINENTAL = 2, BOSCH_B = 3;
     private static final int BOSCH_S = 1, MOBIS = 2;
 
+    private static final String SHOW_CAR_TYPE_MENU = "        ______________\n       /|            |\n  ____/_|_____________|____\n |                      O  |\n '-(@)----------------(@)--'\n===============================\n어떤 차량 타입을 선택할까요?\n 1. Sedan\n 2. SUV\n 3. Truck\n ===============================";
+    private static final String SHOW_ENGIN_MENU = "어떤 엔진을 탑재할까요?\n0. 뒤로가기\n1. GM\n2. TOYOTA\n3. WIA\n4. 고장난 엔진\n===============================";
+    private static final String SHOW_BRAKE_MENU = "어떤 제동장치를 선택할까요?\n0. 뒤로가기\n1. MANDO\n2. CONTINENTAL\n3. BOSCH\n===============================";
+    private static final String SHOW_STEERING_MENU = "어떤 조향장치를 선택할까요?\n0. 뒤로가기\n1. BOSCH\n2. MOBIS\n===============================";
+    private static final String SHOW_RUN_TEST_MENU = "멋진 차량이 완성되었습니다.\n어떤 동작을 할까요?\n0. 처음 화면으로 돌아가기\n1. RUN\n2. Test\n===============================";
+
     private static int[] userSelections = new int[5];
 
     public static void main(String[] args) {
@@ -26,7 +32,8 @@ public class Assemble {
             System.out.print(CLEAR_SCREEN);
             System.out.flush();
 
-            showMenu(step);
+            String currentMenuBar = getMenu(step);
+            System.out.println(currentMenuBar);
 
             System.out.print("INPUT > ");
             String buf = sc.nextLine().trim();
@@ -38,9 +45,10 @@ public class Assemble {
 
             int answer;
 
-            try {
+            if(isDigit(buf)) {
                 answer = Integer.parseInt(buf);
-            } catch (NumberFormatException e) {
+            }
+            else{
                 System.out.println("ERROR :: 숫자만 입력 가능");
                 delay(800);
                 continue;
@@ -52,11 +60,7 @@ public class Assemble {
             }
 
             if (answer == 0) {
-                if (step == Run_Test) {
-                    step = CarType_Q;
-                } else if (step > CarType_Q) {
-                    step--;
-                }
+                step = getBeforeStep(step);
                 continue;
             }
 
@@ -98,69 +102,40 @@ public class Assemble {
         sc.close();
     }
 
-    private static void showMenu(int step) {
-        switch (step) {
-            case CarType_Q:
-                showCarTypeMenu(); break;
-            case Engine_Q:
-                showEngineMenu(); break;
-            case BrakeSystem_Q:
-                showBrakeMenu(); break;
-            case SteeringSystem_Q:
-                showSteeringMenu(); break;
-            case Run_Test:
-                showRunTestMenu(); break;
-        }
-    }
-
     private static boolean isExit(String buf) {
         return buf.equalsIgnoreCase("exit");
     }
 
-    private static void showCarTypeMenu() {
-        System.out.println("        ______________");
-        System.out.println("       /|            |");
-        System.out.println("  ____/_|_____________|____");
-        System.out.println(" |                      O  |");
-        System.out.println(" '-(@)----------------(@)--'");
-        System.out.println("===============================");
-        System.out.println("어떤 차량 타입을 선택할까요?");
-        System.out.println("1. Sedan");
-        System.out.println("2. SUV");
-        System.out.println("3. Truck");
-        System.out.println("===============================");
+    private static String getMenu(int step) {
+        switch (step) {
+            case CarType_Q: return SHOW_CAR_TYPE_MENU;
+            case Engine_Q: return SHOW_ENGIN_MENU;
+            case BrakeSystem_Q: return SHOW_BRAKE_MENU;
+            case SteeringSystem_Q: return SHOW_STEERING_MENU;
+            case Run_Test: return SHOW_RUN_TEST_MENU;
+        }
+
+        return null;
     }
-    private static void showEngineMenu() {
-        System.out.println("어떤 엔진을 탑재할까요?");
-        System.out.println("0. 뒤로가기");
-        System.out.println("1. GM");
-        System.out.println("2. TOYOTA");
-        System.out.println("3. WIA");
-        System.out.println("4. 고장난 엔진");
-        System.out.println("===============================");
+
+    private static boolean isDigit(String buf) {
+        try{
+            int answer = Integer.parseInt(buf);
+        }catch(NumberFormatException e) {
+            return false;
+        }
+
+        return true;
     }
-    private static void showBrakeMenu() {
-        System.out.println("어떤 제동장치를 선택할까요?");
-        System.out.println("0. 뒤로가기");
-        System.out.println("1. MANDO");
-        System.out.println("2. CONTINENTAL");
-        System.out.println("3. BOSCH");
-        System.out.println("===============================");
-    }
-    private static void showSteeringMenu() {
-        System.out.println("어떤 조향장치를 선택할까요?");
-        System.out.println("0. 뒤로가기");
-        System.out.println("1. BOSCH");
-        System.out.println("2. MOBIS");
-        System.out.println("===============================");
-    }
-    private static void showRunTestMenu() {
-        System.out.println("멋진 차량이 완성되었습니다.");
-        System.out.println("어떤 동작을 할까요?");
-        System.out.println("0. 처음 화면으로 돌아가기");
-        System.out.println("1. RUN");
-        System.out.println("2. Test");
-        System.out.println("===============================");
+
+    private static int getBeforeStep(int step) {
+        if (step == Run_Test) {
+            return CarType_Q;
+        } else if (step > CarType_Q) {
+            return step - 1;
+        }
+
+        return step;
     }
 
     private static boolean isValidRange(int step, int ans) {
