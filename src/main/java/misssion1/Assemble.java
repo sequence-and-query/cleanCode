@@ -34,7 +34,7 @@ public class Assemble {
 
             String currentMenuBar = getMenu(step);
             System.out.println(currentMenuBar);
-            
+
             System.out.print("INPUT > ");
             String buf = sc.nextLine().trim();
 
@@ -176,21 +176,21 @@ public class Assemble {
 
     private static void selectCarType(int a) {
         userSelections[CarType_Q] = a;
-        System.out.printf("차량 타입으로 %s을 선택하셨습니다.\n", a == 1 ? "Sedan" : a == 2 ? "SUV" : "Truck");
+        System.out.printf("차량 타입으로 %s을 선택하셨습니다.\n", getUserSelectCarName());
     }
     private static void selectEngine(int a) {
         userSelections[Engine_Q] = a;
-        String name = a == 1 ? "GM" : a == 2 ? "TOYOTA" : a == 3 ? "WIA" : "고장난 엔진";
+        String name = getUserSelectEngineName();
         System.out.printf("%s 엔진을 선택하셨습니다.\n", name);
     }
     private static void selectBrakeSystem(int a) {
         userSelections[BrakeSystem_Q] = a;
-        String name = a == 1 ? "MANDO" : a == 2 ? "CONTINENTAL" : "BOSCH";
+        String name = getUserSelectBrakeName();
         System.out.printf("%s 제동장치를 선택하셨습니다.\n", name);
     }
     private static void selectSteeringSystem(int a) {
         userSelections[SteeringSystem_Q] = a;
-        String name = a == 1 ? "BOSCH" : "MOBIS";
+        String name = getUserSelectSteeringName();
         System.out.printf("%s 조향장치를 선택하셨습니다.\n", name);
     }
 
@@ -291,7 +291,6 @@ public class Assemble {
         System.out.println("자동차 부품 조합 테스트 결과 : FAIL");
         System.out.println(msg);
     }
-
 
     private static void delay(int ms) {
         try {
