@@ -68,39 +68,4 @@ public class UserInputResultValidate {
         return true;
     }
 
-    public boolean isValidRange(int step, int ans) {
-        switch (step) {
-            case CarType_Q:
-                if (ans < 1 || ans > 3) {
-                    System.out.println("ERROR :: 차량 타입은 1 ~ 3 범위만 선택 가능");
-                    return false;
-                }
-                break;
-            case Engine_Q:
-                if (ans < 0 || ans > 4) {
-                    System.out.println("ERROR :: 엔진은 1 ~ 4 범위만 선택 가능");
-                    return false;
-                }
-                break;
-            case BrakeSystem_Q:
-                if (ans < 0 || ans > 3) {
-                    System.out.println("ERROR :: 제동장치는 1 ~ 3 범위만 선택 가능");
-                    return false;
-                }
-                break;
-            case SteeringSystem_Q:
-                if (ans < 0 || ans > 2) {
-                    System.out.println("ERROR :: 조향장치는 1 ~ 2 범위만 선택 가능");
-                    return false;
-                }
-                break;
-            case Run_Test:
-                if (ans < 0 || ans > 2) {
-                    System.out.println("ERROR :: Run 또는 Test 중 하나를 선택 필요");
-                    return false;
-                }
-                break;
-        }
-        return true;
-    }
 }

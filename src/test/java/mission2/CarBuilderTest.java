@@ -1,6 +1,5 @@
 package mission2;
 
-
 import mission2.brakesystem.BrakeSystemFactory;
 import mission2.car.Car;
 import mission2.cartype.CarFactory;
@@ -49,6 +48,11 @@ public class CarBuilderTest {
 
         expected = "멋진 차량이 완성되었습니다.\n어떤 동작을 할까요?\n0. 처음 화면으로 돌아가기\n1. RUN\n2. Test\n===============================";
         actual = carBuilder.getMenu(4);
+
+        Assertions.assertEquals(expected, actual);
+
+        expected = null;
+        actual = carBuilder.getMenu(5);
 
         Assertions.assertEquals(expected, actual);
     }
@@ -128,5 +132,32 @@ public class CarBuilderTest {
         Mockito.doNothing().when(carBuilder).delay(Mockito.anyInt());
 
         Assertions.assertDoesNotThrow(carBuilder::start);
+    }
+
+    @Test
+    public void invalidCar() {
+        Car car = new Car();
+        car.setCarType(CarFactory.getInstance().getCarType(1));
+        car.setEngine(EngineFactory.getInstance().getEngine(1));
+        car.setBrakeSystem(BrakeSystemFactory.getInstance().getBrakeSystem(2));
+        car.setSteeringSystem(SteeringSystemFactory.getInstance().getSteeringSystem(2));
+
+        String expected = "자동차가 동작되지 않습니다";
+        String actual = carBuilder.run(car);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void readLineTest() {
+        Assertions.assertThrows(Exception.class, () -> carBuilder.readLine(null));
+    }
+
+    @Test
+    public void getBeforeTest() {
+        int expected = 0;
+        int actual = carBuilder.getBeforeStep(0);
+
+        Assertions.assertEquals(expected, actual);
     }
 }

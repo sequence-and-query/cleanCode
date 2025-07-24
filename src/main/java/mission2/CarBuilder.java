@@ -1,10 +1,10 @@
 package mission2;
 
-import lombok.Data;
 import mission2.brakesystem.BrakeSystemFactory;
 import mission2.car.Car;
 import mission2.cartype.CarFactory;
 import mission2.engine.EngineFactory;
+import mission2.engine.EngineType;
 import mission2.resultcode.CarBuildResult;
 import mission2.resultcode.UserInputResult;
 import mission2.resultcode.UserInputResultValidate;
@@ -12,7 +12,6 @@ import mission2.steeringsystem.SteeringSystemFactory;
 
 import java.util.Scanner;
 
-@Data
 public class CarBuilder {
     private final String CLEAR_SCREEN = "\033[H\033[2J";
 
@@ -149,7 +148,7 @@ public class CarBuilder {
         if(!isValid(car)) {
             return "자동차가 동작되지 않습니다";
         }
-        if(car.getEngine().getEngineCode() == 4) {
+        if(EngineType.BROKEN_ENGINE.equals(car.getEngine().getEngineName())) {
             return "엔진이 고장나있습니다.\n자동차가 움직이지 않습니다.";
         }
 
