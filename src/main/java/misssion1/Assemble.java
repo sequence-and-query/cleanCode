@@ -34,7 +34,7 @@ public class Assemble {
 
             String currentMenuBar = getMenu(step);
             System.out.println(currentMenuBar);
-
+            
             System.out.print("INPUT > ");
             String buf = sc.nextLine().trim();
 
@@ -215,16 +215,60 @@ public class Assemble {
             return;
         }
 
-        String[] carNames = {"", "Sedan", "SUV", "Truck"};
-        String[] engNames = {"", "GM", "TOYOTA", "WIA"};
-        System.out.printf("Car Type : %s\n", carNames[userSelections[CarType_Q]]);
-        System.out.printf("Engine   : %s\n", engNames[userSelections[Engine_Q]]);
-        System.out.printf("Brake    : %s\n",
-                userSelections[BrakeSystem_Q]==1? "Mando":
-                        userSelections[BrakeSystem_Q]==2? "Continental":"Bosch");
-        System.out.printf("Steering : %s\n",
-                userSelections[SteeringSystem_Q]==1? "Bosch":"Mobis");
+        System.out.printf("Car Type : %s\n", getUserSelectCarName());
+        System.out.printf("Engine   : %s\n", getUserSelectEngineName());
+        System.out.printf("Brake    : %s\n", getUserSelectBrakeName());
+        System.out.printf("Steering : %s\n", getUserSelectSteeringName());
         System.out.println("자동차가 동작됩니다.");
+    }
+
+    private static String getUserSelectCarName() {
+        String[] carNames = {"", "Sedan", "SUV", "Truck"};
+        String carName = null;
+
+        try{
+            carName = carNames[userSelections[CarType_Q]];
+        }catch(ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+
+        return carName;
+    }
+
+    private static String getUserSelectEngineName() {
+        String[] engNames = {"", "GM", "TOYOTA", "WIA"};
+        String engineName = null;
+
+        try{
+            engineName = engNames[userSelections[Engine_Q]];
+        }catch(ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+
+        return engineName;
+    }
+
+    private static String getUserSelectBrakeName() {
+        String brakeName = null;
+        try{
+            brakeName = userSelections[BrakeSystem_Q] == 1 ? "Mando" : userSelections[BrakeSystem_Q] == 2 ? "Continental" : "Bosch";
+        }catch(ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+
+        return brakeName;
+    }
+
+    private static String getUserSelectSteeringName() {
+        String steeringSystemName = null;
+
+        try{
+            steeringSystemName = userSelections[SteeringSystem_Q] == 1 ? "Bosch" : "Mobis";
+        }catch(ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+
+        return steeringSystemName;
     }
 
     private static void testProducedCar() {
