@@ -180,18 +180,15 @@ public class Assemble {
     }
     private static void selectEngine(int a) {
         userSelections[Engine_Q] = a;
-        String name = getUserSelectEngineName();
-        System.out.printf("%s 엔진을 선택하셨습니다.\n", name);
+        System.out.printf("%s 엔진을 선택하셨습니다.\n", getUserSelectEngineName());
     }
     private static void selectBrakeSystem(int a) {
         userSelections[BrakeSystem_Q] = a;
-        String name = getUserSelectBrakeName();
-        System.out.printf("%s 제동장치를 선택하셨습니다.\n", name);
+        System.out.printf("%s 제동장치를 선택하셨습니다.\n", getUserSelectBrakeName());
     }
     private static void selectSteeringSystem(int a) {
         userSelections[SteeringSystem_Q] = a;
-        String name = getUserSelectSteeringName();
-        System.out.printf("%s 조향장치를 선택하셨습니다.\n", name);
+        System.out.printf("%s 조향장치를 선택하셨습니다.\n", getUserSelectSteeringName());
     }
 
 
